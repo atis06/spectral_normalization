@@ -9,20 +9,20 @@
 .idea/**/shelf
 
 # Generated files
-.idea/**/contentModel.xml
+spectral_normalization/.idea/**/contentModel.xml
 
 # Sensitive or high-churn files
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/dbnavigator.xml
+spectral_normalization/.idea/**/dataSources/
+spectral_normalization/.idea/**/dataSources.ids
+spectral_normalization/.idea/**/dataSources.local.xml
+spectral_normalization/.idea/**/sqlDataSources.xml
+spectral_normalization/.idea/**/dynamic.xml
+spectral_normalization/.idea/**/uiDesigner.xml
+spectral_normalization/.idea/**/dbnavigator.xml
 
 # Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
+spectral_normalization/.idea/**/gradle.xml
+spectral_normalization/.idea/**/libraries
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -33,25 +33,25 @@
 # .idea/modules
 
 # CMake
-cmake-build-*/
+spectral_normalization/cmake-build-*/
 
 # Mongo Explorer plugin
-.idea/**/mongoSettings.xml
+spectral_normalization/.idea/**/mongoSettings.xml
 
 # File-based project format
-*.iws
+spectral_normalization/*.iws
 
 # IntelliJ
-out/
+spectral_normalization/out/
 
 # mpeltonen/sbt-idea plugin
-.idea_modules/
+spectral_normalization/.idea_modules/
 
 # JIRA plugin
-atlassian-ide-plugin.xml
+spectral_normalization/atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
-.idea/replstate.xml
+spectral_normalization/.idea/replstate.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -60,7 +60,7 @@ crashlytics-build.properties
 fabric.properties
 
 # Editor-based Rest Client
-.idea/httpRequests
+spectral_normalization/.idea/httpRequests
 
 # Android studio 3.1+ serialized cache file
-.idea/caches/build_file_checksums.ser
+spectral_normalization/.idea/caches/build_file_checksums.ser
