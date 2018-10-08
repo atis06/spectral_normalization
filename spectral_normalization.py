@@ -1,7 +1,7 @@
 import numpy as np
 
 matrix = np.array([[4, 33, 2],
-       [1,  0,  1],
+       [1,  0,  2],
        [ 2,  3,  14]])
 
 
