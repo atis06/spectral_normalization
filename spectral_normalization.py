@@ -31,8 +31,8 @@ class Spectral_Normalization:
 
         sess.run(tf.global_variables_initializer())
         print("Sigma is: %s\n" %(sess.run(sigma)[0][0]))
-        print("The matrix after the iterations is:\n %s\n" % (sess.run(matrix_norm)))
-        print("L2 norm of the matrix after the iterations is: %f\n" %(sess.run(tf.norm((matrix_norm), ord=2))))
+        print("The matrix after %s iterations is:\n %s\n" % (self.iterations, sess.run(matrix_norm)))
+        print("L2 norm of the matrix after %s iterations is: %f\n" %(self.iterations, sess.run(tf.norm((matrix_norm), ord=2))))
 
 s = Spectral_Normalization(matrix, 11)
 s._update_u_v()
