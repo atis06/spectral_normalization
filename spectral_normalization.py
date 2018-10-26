@@ -1,38 +1,32 @@
 import tensorflow as tf
+from keras import backend as K
 
-matrix = tf.Variable([[-4.0, -33.0, -2.0],
+sess = tf.Session()
+
+matrix = K.variable(value = [[-4.0, -33.0, -2.0],
        [-1.0,  0.0,  1.0],
-       [ 2.0,  3.0,  14.0]], tf.float32)
+       [ 2.0,  3.0,  14.0]], name='matrix')
 
-class Spectral_Normalization:
-    def __init__(self, matrix, iterations=1):
-        self.iterations = iterations
-        self.matrix = matrix
-        self.u = None
-        self.v = None
+matrix_shape = matrix.shape.as_list()
 
-    def initialize_vector(self):
-        matrix_shape = matrix.shape.as_list()
-        self.matrix = tf.reshape(matrix, [-1, matrix_shape[-1]])
-        self.u = tf.get_variable("u", [1, matrix_shape[-1]], initializer=tf.random_normal_initializer(), trainable=False)
+u = K.variable(value=K.random_normal([1, matrix_shape[1]]), name='u')
+v = K.variable(value=K.random_normal([1, matrix_shape[0]]), name='v')
 
-    def _update_u_v(self):
-        sess = tf.Session()
-        sess.run(tf.global_variables_initializer())
-        print("Original matrix is:\n %s\n" % (sess.run(self.matrix)))
+sess.run(tf.global_variables_initializer())
 
-        self.initialize_vector()
-        for i in range(self.iterations):
-            self.v = tf.nn.l2_normalize(tf.matmul(self.u, tf.transpose(self.matrix)))
-            self.u = tf.nn.l2_normalize(tf.matmul(self.v, self.matrix))
+print("Original matrix is:\n %s\n" % (sess.run(matrix)))
+iterations = 10
+for i in range(iterations):
+    v = K.update(v, K.l2_normalize(K.dot(u, K.transpose(matrix))))
+    u = K.update(u, K.l2_normalize(K.dot(v, matrix)))
 
-        sigma = tf.matmul(tf.matmul(self.v, self.matrix), tf.transpose(self.u))
-        matrix_norm = tf.reshape(self.matrix / sigma, matrix.shape.as_list())
+sigma = K.dot(K.dot(v, matrix), K.transpose(u))
+matrix_norm = matrix / sigma
 
-        sess.run(tf.global_variables_initializer())
-        print("Sigma is: %s\n" %(sess.run(sigma)[0][0]))
-        print("The matrix after %s iterations is:\n %s\n" % (self.iterations, sess.run(matrix_norm)))
-        print("L2 norm of the matrix after %s iterations is: %f\n" %(self.iterations, sess.run(tf.norm((matrix_norm), ord=2))))
+print("Sigma is: %s\n" %(sess.run(sigma)[0][0]))
+print("The matrix after %s iterations is:\n %s\n" % (iterations, sess.run(matrix_norm)))
+print("2 norm of the normalized matrix after %s iterations (tensorflow): %f\n" % (iterations, sess.run(tf.norm((matrix_norm), ord=2))))
 
-s = Spectral_Normalization(matrix, 11)
-s._update_u_v()
+m_n = sess.run(matrix_norm)
+import numpy as np
+print("2 norm (numpy):", np.sqrt(np.linalg.eigvalsh(m_n.dot(m_n.T))[-1]))
